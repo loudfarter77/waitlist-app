@@ -1,6 +1,6 @@
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
-import { supabase } from '@/lib/supabase'
+import { getSupabaseClient } from '@/lib/supabase'
 
 type WaitlistEntry = {
   id: string
@@ -16,6 +16,7 @@ export default async function AdminPage() {
     redirect('/')
   }
 
+  const supabase = getSupabaseClient()
   const { data, error } = await supabase
     .from('waitlist')
     .select('*')

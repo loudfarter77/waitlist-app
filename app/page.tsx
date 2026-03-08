@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { supabase } from '@/lib/supabase'
+import { getSupabaseClient } from '@/lib/supabase'
 
 export default function Home() {
   const [name, setName] = useState('')
@@ -13,6 +13,7 @@ export default function Home() {
     e.preventDefault()
     setStatus('loading')
 
+    const supabase = getSupabaseClient()
     const { error } = await supabase
       .from('waitlist')
       .insert([{ name, email }])
